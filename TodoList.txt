@@ -1,0 +1,59 @@
+ERD/DDL/DCL/DML *완
+Spring Security *완
+Response 코드 및 메시지 인터페이스 작성 *완
+공동 객체 타입 선언 *완
+회원가입 기능 구현 DTO *완
+Entity, Repository 작성 *완
+컴포넌트 생성 *완
+React-Router-Dom SPA 작업 *완
+Footer, Header 레이아웃 *완
+Header 로그인 조건부 렌더링 *완
+
+
+
+회원가입 API 구현 *완
+로그인 API 구현 *완
+Auth 페이지 공통 스타일, 로그인, 회원가입, API *완
+로그인 유저 불러오기 API *완
+파일 업로드, 불러오기 API 구현 *완 Post:http://localhost:4000/file/upload
+게시물 작성 API 구현 *완
+Ex>
+http://localhost:4000/api/v1/auth/sign-in -> Post -> 
+{
+    "email": "email3@email3.com",
+    "password": "P!ssw0rd"
+} -> 토큰 복사 -> http://localhost:4000/api/v1/board ->
+{
+    "title": "제목입니다.",
+    "content": "내용입니다.",
+    "boardImageList": [
+        "http://localhost:4000/file/d6bc5c18-1704-405d-9a86-dfa2007ff7fb.png",
+        "http://localhost:4000/file/9a80c841-67ee-4ca0-85db-924fc56f2fb4.png"
+    ]
+}
+게시물 작성 페이지 구조, 스타일, 이벤트 처리, API연동 *완
+-------------------특정 게시물 불러오기 API 구현 boardNumber 해결하지 못함 -----------------
+좋아요 누르기, 좋아요 리스트 불러오기 API 구현 *완
+게시물 댓글 작성, 리스트 불러오기 API 구현 *완
+게시물 상세 페이지 컴포넌트, 스타일 *완
+게시물 상세 페이지 특정 게시물 불러오기 API 연동 *완
+
+
+해야 할일
+
+게시물 상세 페이지 좋아요, 댓글 리스트 불러오기 API 연동
+게시물 삭제 API 구현
+게시물 상세 페이지 좋아요, 댓글 작성, 게시물 삭제 API 연동
+게시물 수정 API 구현
+게시물 수정 페이지 API 연동
+페이징 처리 컴포넌트
+최신 게시물 리스트 불러오기 API 작성
+주간 TOP6 게시물 불러오기 API 작성
+인기 검색어 불러오기 API 작성
+메인 페이지 API 연동
+검색 게시물 리스트 불러오기 API 작성
+연관 검색어 리스트 불러오기 API 작성
+검색 페이지 구조 및 스타일, API 연동
+유저 및 유저 게시물 불러오기 API 작성
+닉네임 및 프로필 이미지 수정 API 작성
+유저 페이지 컴포넌트, 스타일, API 연동
