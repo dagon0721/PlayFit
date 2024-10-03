@@ -9,7 +9,7 @@ Bearer Token Authentication
 - JWT 방식 사용하여 인증
 - 간단한 방식, 상태를 유지하지 않음, 확장성이 높음
 - 토큰 노출 위험, 토큰 관리 힘듬
-1234
+1234455
 Authorization: Bearer ~~~~~
 
 OAuth
