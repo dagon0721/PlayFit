@@ -14,6 +14,7 @@ import com.daelim.board_back.dto.response.board.GetBoardResponseDto;
 import com.daelim.board_back.dto.response.board.GetCommentListResponseDto;
 import com.daelim.board_back.dto.response.board.GetFavoriteListResponseDto;
 import com.daelim.board_back.dto.response.board.GetLatestBoardListResponseDto;
+import com.daelim.board_back.dto.response.board.GetTop6BoardListResponseDto;
 import com.daelim.board_back.dto.response.board.IncreaseViewCountResoponseDto;
 import com.daelim.board_back.dto.response.board.PatchBoardResponseDto;
 import com.daelim.board_back.dto.response.board.PostBoardResponseDto;
@@ -34,7 +35,10 @@ import com.daelim.board_back.repository.resultSet.GetBoardResultSet;
 import com.daelim.board_back.repository.resultSet.GetCommentListResultSet;
 import com.daelim.board_back.repository.resultSet.GetFavoriteListResultSet;
 import com.daelim.board_back.service.BoardService;
-
+import java.util.Date;
+import java.time.Instant;
+import java.time.temporal.ChronoUnit;
+import java.text.SimpleDateFormat;
 import lombok.RequiredArgsConstructor;
 
 @Service
@@ -242,6 +246,26 @@ public class BoardServiceImplement implements BoardService {
         }
 
         return PatchBoardResponseDto.success();
+    }
+
+    @Override
+    public ResponseEntity<? super GetTop6BoardListResponseDto> getTop6BoardList() {
+        
+        List<BoardListViewEntity> boardListViewEntities = new ArrayList<>();
+
+        try {
+
+            Date beforeWeek = Date.from(Instant.now().minus(7, ChronoUnit.DAYS));
+            SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+            String sevenDaysAgo = simpleDateFormat.format(beforeWeek);
+            boardListViewEntities = boardListViewRepository.findTop6ByWriteDatetimeGreaterThanOrderByFavoriteCountDescCommentCountDescViewCountDescWriteDatetimeDesc(sevenDaysAgo);
+
+        } catch (Exception exception) {
+            exception.printStackTrace();
+            return ResponseDto.databaseError();
+        }
+
+        return GetTop6BoardListResponseDto.success(boardListViewEntities);
     }
 
     @Override
