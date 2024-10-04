@@ -6,6 +6,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import com.daelim.board_back.dto.request.board.PatchBoardRequestDto;
 import com.daelim.board_back.dto.request.board.PostBoardRequestDto;
 
 import lombok.AllArgsConstructor;
@@ -66,5 +67,8 @@ public class BoardEntity {
         this.favoriteCount--;
     }
 
-
+    public void patchBoard(PatchBoardRequestDto dto) {
+        this.title = dto.getTitle();
+        this.content = dto.getContent();
+    }
 }
