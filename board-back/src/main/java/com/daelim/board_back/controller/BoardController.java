@@ -23,6 +23,7 @@ import com.daelim.board_back.dto.response.board.GetBoardResponseDto;
 import com.daelim.board_back.dto.response.board.GetCommentListResponseDto;
 import com.daelim.board_back.dto.response.board.GetFavoriteListResponseDto;
 import com.daelim.board_back.dto.response.board.GetLatestBoardListResponseDto;
+import com.daelim.board_back.dto.response.board.GetSearchBoardListResponseDto;
 import com.daelim.board_back.dto.response.board.GetTop6BoardListResponseDto;
 import com.daelim.board_back.dto.response.board.IncreaseViewCountResoponseDto;
 import com.daelim.board_back.dto.response.board.PatchBoardResponseDto;
@@ -81,6 +82,15 @@ public class BoardController {
     @GetMapping("/top-6")
     public ResponseEntity<? super GetTop6BoardListResponseDto> getTop6BoardList() {
         ResponseEntity<? super GetTop6BoardListResponseDto> response = boardService.getTop6BoardList();
+        return response;
+    }
+
+    @GetMapping(value={"/search-list/{searchWord}", "/search-list/{searchWord}/{preSearchWord}"})
+    public ResponseEntity<? super GetSearchBoardListResponseDto> getSearchBoardList(
+        @PathVariable("searchWord") String searchWord,
+        @PathVariable(value="preSearchWord", required = false) String preSearchWord
+    ){
+        ResponseEntity<? super GetSearchBoardListResponseDto> response = boardService.getSearchBoardList(searchWord, preSearchWord);
         return response;
     }
 

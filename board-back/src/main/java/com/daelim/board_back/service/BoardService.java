@@ -15,6 +15,7 @@ import com.daelim.board_back.dto.response.board.PostBoardResponseDto;
 import com.daelim.board_back.dto.response.board.PostCommentResponseDto;
 import com.daelim.board_back.dto.response.board.PutFavoriteResponseDto;
 import com.daelim.board_back.dto.response.board.GetLatestBoardListResponseDto;
+import com.daelim.board_back.dto.response.board.GetSearchBoardListResponseDto;
 import com.daelim.board_back.dto.response.board.GetTop6BoardListResponseDto;
 
 public interface BoardService {
@@ -23,6 +24,7 @@ public interface BoardService {
     ResponseEntity<? super GetCommentListResponseDto> getCommentList(Integer boardNumber);
     ResponseEntity<? super GetLatestBoardListResponseDto> getLatestBoardList();
     ResponseEntity<? super GetTop6BoardListResponseDto> getTop6BoardList();
+    ResponseEntity<? super GetSearchBoardListResponseDto> getSearchBoardList(String searchWord, String preSearchWord);
     ResponseEntity<? super PostBoardResponseDto> postBoard(PostBoardRequestDto dto, String email);
     ResponseEntity<? super PostCommentResponseDto> postComment(PostCommentRequestDto dto, Integer boardNumber, String email);
 
