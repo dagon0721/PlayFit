@@ -15,7 +15,7 @@ import com.daelim.board_back.dto.response.board.GetCommentListResponseDto;
 import com.daelim.board_back.dto.response.board.GetFavoriteListResponseDto;
 import com.daelim.board_back.dto.response.board.GetLatestBoardListResponseDto;
 import com.daelim.board_back.dto.response.board.GetSearchBoardListResponseDto;
-import com.daelim.board_back.dto.response.board.GetTop6BoardListResponseDto;
+import com.daelim.board_back.dto.response.board.GetTop3BoardListResponseDto;
 import com.daelim.board_back.dto.response.board.GetUserBoardListResponseDto;
 import com.daelim.board_back.dto.response.board.IncreaseViewCountResoponseDto;
 import com.daelim.board_back.dto.response.board.PatchBoardResponseDto;
@@ -254,7 +254,7 @@ public class BoardServiceImplement implements BoardService {
     }
 
     @Override
-    public ResponseEntity<? super GetTop6BoardListResponseDto> getTop6BoardList() {
+    public ResponseEntity<? super GetTop3BoardListResponseDto> getTop3BoardList() {
         
         List<BoardListViewEntity> boardListViewEntities = new ArrayList<>();
 
@@ -263,14 +263,14 @@ public class BoardServiceImplement implements BoardService {
             Date beforeWeek = Date.from(Instant.now().minus(7, ChronoUnit.DAYS));
             SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
             String sevenDaysAgo = simpleDateFormat.format(beforeWeek);
-            boardListViewEntities = boardListViewRepository.findTop6ByWriteDatetimeGreaterThanOrderByFavoriteCountDescCommentCountDescViewCountDescWriteDatetimeDesc(sevenDaysAgo);
+            boardListViewEntities = boardListViewRepository.findTop3ByWriteDatetimeGreaterThanOrderByFavoriteCountDescCommentCountDescViewCountDescWriteDatetimeDesc(sevenDaysAgo);
 
         } catch (Exception exception) {
             exception.printStackTrace();
             return ResponseDto.databaseError();
         }
 
-        return GetTop6BoardListResponseDto.success(boardListViewEntities);
+        return GetTop3BoardListResponseDto.success(boardListViewEntities);
     }
 
     @Override

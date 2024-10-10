@@ -9,7 +9,7 @@ import com.daelim.board_back.entity.BoardListViewEntity;
 public interface BoardListViewRepository extends JpaRepository<BoardListViewEntity, Integer> {
     
     List<BoardListViewEntity> findByOrderByWriteDatetimeDesc();
-    List<BoardListViewEntity> findTop6ByWriteDatetimeGreaterThanOrderByFavoriteCountDescCommentCountDescViewCountDescWriteDatetimeDesc(String writeDate);
+    List<BoardListViewEntity> findTop3ByWriteDatetimeGreaterThanOrderByFavoriteCountDescCommentCountDescViewCountDescWriteDatetimeDesc(String writeDatetime);
 
     List<BoardListViewEntity> findByTitleContainsOrContentContainsOrderByWriteDatetimeDesc(String title, String content);
     List<BoardListViewEntity> findByWriterEmailOrderByWriteDatetimeDesc(String writerEmail);

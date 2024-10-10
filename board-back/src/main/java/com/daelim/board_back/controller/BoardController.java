@@ -24,7 +24,7 @@ import com.daelim.board_back.dto.response.board.GetCommentListResponseDto;
 import com.daelim.board_back.dto.response.board.GetFavoriteListResponseDto;
 import com.daelim.board_back.dto.response.board.GetLatestBoardListResponseDto;
 import com.daelim.board_back.dto.response.board.GetSearchBoardListResponseDto;
-import com.daelim.board_back.dto.response.board.GetTop6BoardListResponseDto;
+import com.daelim.board_back.dto.response.board.GetTop3BoardListResponseDto;
 import com.daelim.board_back.dto.response.board.GetUserBoardListResponseDto;
 import com.daelim.board_back.dto.response.board.IncreaseViewCountResoponseDto;
 import com.daelim.board_back.dto.response.board.PatchBoardResponseDto;
@@ -80,9 +80,9 @@ public class BoardController {
         return response;
     }
 
-    @GetMapping("/top-6")
-    public ResponseEntity<? super GetTop6BoardListResponseDto> getTop6BoardList() {
-        ResponseEntity<? super GetTop6BoardListResponseDto> response = boardService.getTop6BoardList();
+    @GetMapping("/top-3")
+    public ResponseEntity<? super GetTop3BoardListResponseDto> getTop3BoardList() {
+        ResponseEntity<? super GetTop3BoardListResponseDto> response = boardService.getTop3BoardList();
         return response;
     }
 

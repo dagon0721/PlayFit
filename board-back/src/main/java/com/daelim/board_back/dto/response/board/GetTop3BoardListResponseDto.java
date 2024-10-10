@@ -13,17 +13,17 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
 @Getter
-public class GetTop6BoardListResponseDto extends ResponseDto{
+public class GetTop3BoardListResponseDto extends ResponseDto{
     
-    private List<BoardListItem> top6List;
+    private List<BoardListItem> top3List;
 
-    private GetTop6BoardListResponseDto(List<BoardListViewEntity> boardListViewEntities) {
+    private GetTop3BoardListResponseDto(List<BoardListViewEntity> boardListViewEntities) {
         super(ResponseCode.SUCCESS, ResponseMessage.SUCCESS);
-        this.top6List = BoardListItem.getList(boardListViewEntities);
+        this.top3List = BoardListItem.getList(boardListViewEntities);
     }
 
-    public static ResponseEntity<GetTop6BoardListResponseDto> success(List<BoardListViewEntity> boardListViewEntities) {
-        GetTop6BoardListResponseDto result = new GetTop6BoardListResponseDto(boardListViewEntities);
+    public static ResponseEntity<GetTop3BoardListResponseDto> success(List<BoardListViewEntity> boardListViewEntities) {
+        GetTop3BoardListResponseDto result = new GetTop3BoardListResponseDto(boardListViewEntities);
         return ResponseEntity.status(HttpStatus.OK).body(result);
     }
 }
