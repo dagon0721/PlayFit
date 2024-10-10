@@ -16,6 +16,7 @@ import com.daelim.board_back.dto.response.board.GetFavoriteListResponseDto;
 import com.daelim.board_back.dto.response.board.GetLatestBoardListResponseDto;
 import com.daelim.board_back.dto.response.board.GetSearchBoardListResponseDto;
 import com.daelim.board_back.dto.response.board.GetTop6BoardListResponseDto;
+import com.daelim.board_back.dto.response.board.GetUserBoardListResponseDto;
 import com.daelim.board_back.dto.response.board.IncreaseViewCountResoponseDto;
 import com.daelim.board_back.dto.response.board.PatchBoardResponseDto;
 import com.daelim.board_back.dto.response.board.PostBoardResponseDto;
@@ -299,6 +300,26 @@ public class BoardServiceImplement implements BoardService {
     }
 
     @Override
+    public ResponseEntity<? super GetUserBoardListResponseDto> getUserBoardList(String email) {
+       
+        List<BoardListViewEntity> boardListViewEntities = new ArrayList<>();
+
+        try {
+            
+            boolean existedUser = userRepository.existsByEmail(email);
+            if(!existedUser) return GetUserBoardListResponseDto.noExistUser();
+
+            boardListViewEntities = boardListViewRepository.findByWriterEmailOrderByWriteDatetimeDesc(email);
+
+        } catch (Exception exception) {
+            exception.printStackTrace();
+            return ResponseDto.databaseError();
+        }
+
+        return GetUserBoardListResponseDto.success(boardListViewEntities);
+    }
+
+    @Override
     public ResponseEntity<? super IncreaseViewCountResoponseDto> increaseViewCount(Integer boardNumber) {
         
         try {
@@ -344,5 +365,6 @@ public class BoardServiceImplement implements BoardService {
 
         return DeleteBoardResponseDto.success();
     }
+
     
 }
