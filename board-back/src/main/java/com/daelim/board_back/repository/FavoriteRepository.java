@@ -7,6 +7,7 @@ import java.util.List;
 
 import javax.transaction.Transactional;
 
+import com.daelim.board_back.dto.object.BoardListItem;
 import com.daelim.board_back.entity.FavoriteEntity;
 import com.daelim.board_back.entity.primaryKey.FavoritePk;
 import com.daelim.board_back.repository.resultSet.GetFavoriteListResultSet;
@@ -29,6 +30,29 @@ public interface FavoriteRepository extends JpaRepository<FavoriteEntity, Favori
         nativeQuery = true
     )
     List<GetFavoriteListResultSet> getFavoriteList(Integer boardNumber);
+
+    // 사용자가 좋아요를 누른 게시물 목록을 가져오는 쿼리
+    @Query(
+        value = 
+        "   SELECT " +
+        "   B.board_number AS boardNumber, " +
+        "   B.title AS title, " +
+        "   B.content AS content, " +
+        "   B.favorite_count AS favoriteCount, " +
+        "   B.comment_count AS commentCount, " +
+        "   B.view_count AS viewCount, " +
+        "   B.write_datetime AS writeDatetime, " +
+        "   U.nickname AS writerNickname, " +
+        "   U.profile_image AS writerProfileImage " +
+        "FROM favorite AS F " +
+        "INNER JOIN board AS B " +
+        "ON F.board_number = B.board_number " +
+        "INNER JOIN user AS U " +
+        "ON B.writer_email = U.email " +
+        "WHERE F.user_email = ?1",
+        nativeQuery = true
+    )
+    List<BoardListItem> getFavoriteBoardsByUserEmail(String userEmail);
 
     @Transactional
     void deleteByBoardNumber(Integer boardNumber);

@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import com.daelim.board_back.dto.object.BoardListItem;
 import com.daelim.board_back.dto.request.board.PatchBoardRequestDto;
 import com.daelim.board_back.dto.request.board.PostBoardRequestDto;
 import com.daelim.board_back.dto.request.board.PostCommentRequestDto;
@@ -12,6 +13,7 @@ import com.daelim.board_back.dto.response.ResponseDto;
 import com.daelim.board_back.dto.response.board.DeleteBoardResponseDto;
 import com.daelim.board_back.dto.response.board.GetBoardResponseDto;
 import com.daelim.board_back.dto.response.board.GetCommentListResponseDto;
+import com.daelim.board_back.dto.response.board.GetFavoriteBoardsResponseDto;
 import com.daelim.board_back.dto.response.board.GetFavoriteListResponseDto;
 import com.daelim.board_back.dto.response.board.GetLatestBoardListResponseDto;
 import com.daelim.board_back.dto.response.board.GetSearchBoardListResponseDto;
@@ -365,6 +367,25 @@ public class BoardServiceImplement implements BoardService {
 
         return DeleteBoardResponseDto.success();
     }
+
+    @Override
+public ResponseEntity<? super GetFavoriteBoardsResponseDto> getFavoriteBoards(String userEmail) {
+    List<BoardListItem> favoriteBoards = new ArrayList<>();
+    
+    try {
+        boolean existedUser = userRepository.existsByEmail(userEmail);
+        if (!existedUser) return GetFavoriteBoardsResponseDto.noExistUser();
+
+        favoriteBoards = favoriteRepository.getFavoriteBoardsByUserEmail(userEmail);
+    } catch (Exception exception) {
+        exception.printStackTrace();
+        return ResponseDto.databaseError();
+    }
+
+    return GetFavoriteBoardsResponseDto.success(favoriteBoards);
+}
+
+
 
     
 }
