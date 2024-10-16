@@ -6,6 +6,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import com.daelim.board_back.dto.object.BoardListItem;
+import com.daelim.board_back.dto.object.LikedBoardDto;
 import com.daelim.board_back.dto.request.board.PatchBoardRequestDto;
 import com.daelim.board_back.dto.request.board.PostBoardRequestDto;
 import com.daelim.board_back.dto.request.board.PostCommentRequestDto;
@@ -13,9 +14,9 @@ import com.daelim.board_back.dto.response.ResponseDto;
 import com.daelim.board_back.dto.response.board.DeleteBoardResponseDto;
 import com.daelim.board_back.dto.response.board.GetBoardResponseDto;
 import com.daelim.board_back.dto.response.board.GetCommentListResponseDto;
-import com.daelim.board_back.dto.response.board.GetFavoriteBoardsResponseDto;
 import com.daelim.board_back.dto.response.board.GetFavoriteListResponseDto;
 import com.daelim.board_back.dto.response.board.GetLatestBoardListResponseDto;
+import com.daelim.board_back.dto.response.board.GetLikedBoardsResponseDto;
 import com.daelim.board_back.dto.response.board.GetSearchBoardListResponseDto;
 import com.daelim.board_back.dto.response.board.GetTop3BoardListResponseDto;
 import com.daelim.board_back.dto.response.board.GetUserBoardListResponseDto;
@@ -369,21 +370,29 @@ public class BoardServiceImplement implements BoardService {
     }
 
     @Override
-public ResponseEntity<? super GetFavoriteBoardsResponseDto> getFavoriteBoards(String userEmail) {
-    List<BoardListItem> favoriteBoards = new ArrayList<>();
-    
-    try {
-        boolean existedUser = userRepository.existsByEmail(userEmail);
-        if (!existedUser) return GetFavoriteBoardsResponseDto.noExistUser();
+public ResponseEntity<? super GetLikedBoardsResponseDto> getLikedBoards(String email) {
+    List<LikedBoardDto> likedBoards = new ArrayList<>();
 
-        favoriteBoards = favoriteRepository.getFavoriteBoardsByUserEmail(userEmail);
+    try {
+        boolean existedUser = userRepository.existsByEmail(email);
+        if (!existedUser) return GetLikedBoardsResponseDto.noExistUser();
+
+        List<Object[]> results = favoriteRepository.findLikedBoardsByUserEmail(email);
+        for (Object[] result : results) {
+            likedBoards.add(new LikedBoardDto(result));
+        }
+
+        if (likedBoards.isEmpty()) return GetLikedBoardsResponseDto.noLikedBoards();
+
     } catch (Exception exception) {
         exception.printStackTrace();
         return ResponseDto.databaseError();
     }
 
-    return GetFavoriteBoardsResponseDto.success(favoriteBoards);
+    return GetLikedBoardsResponseDto.success(likedBoards);
 }
+
+
 
 
 

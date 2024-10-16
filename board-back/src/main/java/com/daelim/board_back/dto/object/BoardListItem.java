@@ -1,5 +1,6 @@
 package com.daelim.board_back.dto.object;
 
+import com.daelim.board_back.entity.BoardEntity;
 import com.daelim.board_back.entity.BoardListViewEntity;
 
 import java.util.List;

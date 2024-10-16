@@ -15,16 +15,15 @@ import com.daelim.board_back.dto.response.board.PostBoardResponseDto;
 import com.daelim.board_back.dto.response.board.PostCommentResponseDto;
 import com.daelim.board_back.dto.response.board.PutFavoriteResponseDto;
 import com.daelim.board_back.dto.response.board.GetLatestBoardListResponseDto;
+import com.daelim.board_back.dto.response.board.GetLikedBoardsResponseDto;
 import com.daelim.board_back.dto.response.board.GetSearchBoardListResponseDto;
 import com.daelim.board_back.dto.response.board.GetTop3BoardListResponseDto;
 import com.daelim.board_back.dto.response.board.GetUserBoardListResponseDto;
-import com.daelim.board_back.dto.response.board.GetFavoriteBoardsResponseDto;
 
 
 public interface BoardService {
     ResponseEntity<? super GetBoardResponseDto> getBoard(Integer boardNumber);
     ResponseEntity<? super GetFavoriteListResponseDto> getFavoriteList(Integer boardNumber);
-    ResponseEntity<? super GetFavoriteBoardsResponseDto> getFavoriteBoards(String userEmail);
     ResponseEntity<? super GetCommentListResponseDto> getCommentList(Integer boardNumber);
     ResponseEntity<? super GetLatestBoardListResponseDto> getLatestBoardList();
     ResponseEntity<? super GetTop3BoardListResponseDto> getTop3BoardList();
@@ -35,6 +34,6 @@ public interface BoardService {
     ResponseEntity<? super PutFavoriteResponseDto> putFavorite(Integer boardNumber, String email);
     ResponseEntity<? super PatchBoardResponseDto> patchBoard(PatchBoardRequestDto dto, Integer boardNumber, String email);
     ResponseEntity<? super IncreaseViewCountResoponseDto> increaseViewCount(Integer boardNumber);
-
+    ResponseEntity<? super GetLikedBoardsResponseDto> getLikedBoards(String email);
     ResponseEntity<? super DeleteBoardResponseDto> deleteBoard(Integer boardNumber, String email);
 }

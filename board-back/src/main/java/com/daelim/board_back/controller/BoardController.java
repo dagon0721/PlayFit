@@ -23,6 +23,7 @@ import com.daelim.board_back.dto.response.board.GetBoardResponseDto;
 import com.daelim.board_back.dto.response.board.GetCommentListResponseDto;
 import com.daelim.board_back.dto.response.board.GetFavoriteListResponseDto;
 import com.daelim.board_back.dto.response.board.GetLatestBoardListResponseDto;
+import com.daelim.board_back.dto.response.board.GetLikedBoardsResponseDto;
 import com.daelim.board_back.dto.response.board.GetSearchBoardListResponseDto;
 import com.daelim.board_back.dto.response.board.GetTop3BoardListResponseDto;
 import com.daelim.board_back.dto.response.board.GetUserBoardListResponseDto;
@@ -103,6 +104,14 @@ public class BoardController {
         return response;
     }
 
+    @GetMapping("/user/{email}/liked-boards")
+    public ResponseEntity<? super GetLikedBoardsResponseDto> getLikedBoards(
+        @PathVariable("email") String email
+    ) {
+        ResponseEntity<? super GetLikedBoardsResponseDto> response = boardService.getLikedBoards(email);
+        return response;
+    }
+    
     @PostMapping("")
     public ResponseEntity<? super PostBoardResponseDto> postBoard(
         @RequestBody @Valid PostBoardRequestDto requestBody,

@@ -1,6 +1,5 @@
 package com.daelim.board_back.common;
 
-
 public interface ResponseCode {
 
     // HTTP Status 200
@@ -13,8 +12,7 @@ public interface ResponseCode {
     String DUPLICATE_TEL_NUMBER = "DT";
     String NOT_EXISTED_USER = "NU";
     String NOT_EXISTED_BOARD = "NB";
-    // String INVALID_BIRTH_DATE = "IBD"; // 생년월일 유효성 검사 실패
-
+    String NO_LIKED_BOARDS = "NL"; // 추가된 상수
 
     // HTTP Status 401
     String SIGN_IN_FAIL = "SF";
